@@ -16,4 +16,10 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entrypoints\" />
+    <Folder Include="Activities\" />
+    <Folder Include="ExternalClients\" />
+    <Folder Include="Orchestrators\" />
+  </ItemGroup>
 </Project>
