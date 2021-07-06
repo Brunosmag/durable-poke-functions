@@ -1,4 +1,4 @@
-﻿namespace Durable.Poke.Functions.Commons
+﻿namespace Durable.Poke.Functions.Infrastructure
 {
     public class Constants
     {

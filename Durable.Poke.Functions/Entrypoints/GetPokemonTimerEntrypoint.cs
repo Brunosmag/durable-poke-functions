@@ -1,4 +1,4 @@
-﻿using Durable.Poke.Functions.Commons;
+﻿using Durable.Poke.Functions.Infrastructure;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using System.Threading.Tasks;
