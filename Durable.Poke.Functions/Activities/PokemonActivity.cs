@@ -2,6 +2,7 @@
 using Durable.Poke.Functions.Infrastructure;
 using Durable.Poke.Functions.Infrastructure.Contracts;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using System;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace Durable.Poke.Functions.Activities
         }
 
         [FunctionName(Constants.GetBasePokemonActivity)]
-        public async Task<BasePokemonContract> GetBasePokemonAsync()
+        public async Task<BasePokemonContract> GetBasePokemonAsync([ActivityTrigger] IDurableActivityContext context)
         {
             var pokemonId = GetRandomIdBetweenFirstAndLastPokemon();
 

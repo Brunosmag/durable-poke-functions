@@ -14,7 +14,7 @@ namespace Durable.Poke.Functions.Orchestrators
         {
             try
             {
-                await context.CallActivityAsync<BasePokemonContract>(Constants.GetBasePokemonActivity, null);
+                var teste = await context.CallActivityAsync<BasePokemonContract>(Constants.GetBasePokemonActivity, context);
             }
             catch (Exception ex)
             {
