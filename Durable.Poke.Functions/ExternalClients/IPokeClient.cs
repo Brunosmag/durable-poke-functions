@@ -5,6 +5,6 @@ namespace Durable.Poke.Functions.ExternalClients
 {
     public interface IPokeClient
     {
-        Task<BasePokemonContract> GetBasePokemon(int id);
+        Task<BasePokemonContract> GetAsync(int pokemonId);
     }
 }

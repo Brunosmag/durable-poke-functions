@@ -20,7 +20,7 @@ namespace Durable.Poke.Functions.ExternalClients
         }
 
 
-        public async Task<BasePokemonContract> GetBasePokemon(int pokemonId)
+        public async Task<BasePokemonContract> GetAsync(int pokemonId)
         {
             var requestUri = "$https://pokeapi.co/api/v2/pokemon/{pokemonId}";
 
