@@ -1,5 +1,6 @@
 ﻿using Durable.Poke.Functions.Infrastructure;
 using Durable.Poke.Functions.Infrastructure.Contracts;
+using Durable.Poke.Functions.Infrastructure.Helpers;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using System;
@@ -14,7 +15,10 @@ namespace Durable.Poke.Functions.Orchestrators
         {
             try
             {
-                var teste = await context.CallActivityAsync<BasePokemonContract>(Constants.GetBasePokemonActivity, context);
+                var pokemonId = await context.CallActivityAsync<int>(Constants.GetRandomPokemonIdActivity, null);
+
+                var inputWrapper = new ContextInputWrapper<int>("", pokemonId);
+                var teste = await context.CallActivityAsync<BasePokemonContract>(Constants.GetBasePokemonActivity, inputWrapper);
             }
             catch (Exception ex)
             {

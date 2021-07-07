@@ -3,7 +3,10 @@
     public class Constants
     {
          public const string GetPokemonTimerEntrypoint = "E_Timer_GetPokemon";
+
          public const string GetBasePokemonActivity = "A_GetBasePokemonActivity";
+         public const string GetRandomPokemonIdActivity = "A_GetRandomPokemonIdActivity";
+
          public const string PokeFlowOrchestrator = "O_PokeFlowOrchestrator";
     }
 }
