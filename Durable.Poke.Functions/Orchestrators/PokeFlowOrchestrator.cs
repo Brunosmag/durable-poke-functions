@@ -15,14 +15,19 @@ namespace Durable.Poke.Functions.Orchestrators
         {
             try
             {
+                //1 - Gera um ID de pokemon de forma determinística.
                 var pokemonId = await context.CallActivityAsync<int>(Constants.GetRandomPokemonIdActivity, null);
+                var pokemonIdInputWrapper = new ContextInputWrapper<int>(context.InstanceId, pokemonId);
 
-                var inputWrapper = new ContextInputWrapper<int>("", pokemonId);
-                var teste = await context.CallActivityAsync<BasePokemonContract>(Constants.GetBasePokemonActivity, inputWrapper);
+                //2 - Obtem os dados base de um Pokemon através da PokeApi.
+                var basePokemon = await context.CallActivityAsync<BasePokemonContract>(Constants.GetBasePokemonActivity, pokemonIdInputWrapper);
+                var basePokemonInputWrapper = new ContextInputWrapper<BasePokemonContract>(context.InstanceId, basePokemon);
+
+
             }
             catch (Exception ex)
             {
-
+                throw;
             }
         }
     }
