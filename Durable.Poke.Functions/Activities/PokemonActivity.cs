@@ -31,7 +31,15 @@ namespace Durable.Poke.Functions.Activities
         {
             var input = context.GetInput<ContextInputWrapper<int>>();
 
-            return await PokeClient.GetAsync(input.Data);
+            return await PokeClient.GetPokemonBaseDataAsync(input.Data);
+        }
+
+        [FunctionName(Constants.GetEvolutionChainActivity)]
+        public async Task<Evolution> GetEvolutionChainActivityAsync([ActivityTrigger] IDurableActivityContext context)
+        {
+            var input = context.GetInput<ContextInputWrapper<BasePokemonContract>>();
+
+            return await PokeClient.GetEvolutionChainAsync(input.Data.Id);
         }
     }
 }

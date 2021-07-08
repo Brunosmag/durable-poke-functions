@@ -23,7 +23,9 @@ namespace Durable.Poke.Functions.Orchestrators
                 var basePokemon = await context.CallActivityAsync<BasePokemonContract>(Constants.GetBasePokemonActivity, pokemonIdInputWrapper);
                 var basePokemonInputWrapper = new ContextInputWrapper<BasePokemonContract>(context.InstanceId, basePokemon);
 
-
+                //3 - Obtem dados de evolução do Pokemon.
+                var evolution = await context.CallActivityAsync<Evolution>(Constants.GetEvolutionChainActivity, basePokemonInputWrapper);
+                Console.WriteLine("");
             }
             catch (Exception ex)
             {
