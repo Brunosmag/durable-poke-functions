@@ -22,7 +22,7 @@ namespace Durable.Poke.Functions.Activities
         public Task<int> GetRandomPokemonId([ActivityTrigger] IDurableActivityContext context)
         {
             const int firstPokemon = 1;
-            const int lastPokemon = 890;
+            const int lastPokemon = 150;
             return Task.FromResult(new Random().Next(firstPokemon, lastPokemon));
         }
 
@@ -35,11 +35,19 @@ namespace Durable.Poke.Functions.Activities
         }
 
         [FunctionName(Constants.GetEvolutionChainActivity)]
-        public async Task<Evolution> GetEvolutionChainActivityAsync([ActivityTrigger] IDurableActivityContext context)
+        public async Task<EvolutionContract> GetEvolutionChainActivityAsync([ActivityTrigger] IDurableActivityContext context)
         {
-            var input = context.GetInput<ContextInputWrapper<BasePokemonContract>>();
+            var input = context.GetInput<ContextInputWrapper<int>>();
 
-            return await PokeClient.GetEvolutionChainAsync(input.Data.Id);
+            return await PokeClient.GetEvolutionChainAsync(input.Data);
+        }
+
+        [FunctionName(Constants.GetCharacteristicsActivity)]
+        public async Task<CharacteristcContract> GetCharacteristicsActivityAsync([ActivityTrigger] IDurableActivityContext context)
+        {
+            var input = context.GetInput<ContextInputWrapper<int>>();
+
+            return await PokeClient.GetCharacteristicAsync(input.Data);
         }
     }
 }

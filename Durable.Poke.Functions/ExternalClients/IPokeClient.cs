@@ -7,6 +7,8 @@ namespace Durable.Poke.Functions.ExternalClients
     {
         Task<BasePokemonContract> GetPokemonBaseDataAsync(int pokemonId);
 
-        Task<Evolution> GetEvolutionChainAsync(int pokemonId);
+        Task<EvolutionContract> GetEvolutionChainAsync(int pokemonId);
+
+        Task<CharacteristcContract> GetCharacteristicAsync(int pokemonId);
     }
 }

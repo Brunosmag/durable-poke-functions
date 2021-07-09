@@ -2,7 +2,7 @@
 
 namespace Durable.Poke.Functions.Infrastructure.Contracts
 {
-    public class Evolution
+    public class EvolutionContract
     {
         public int Id { get; set; }
 

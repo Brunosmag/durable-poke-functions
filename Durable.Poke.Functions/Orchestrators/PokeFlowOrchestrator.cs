@@ -21,11 +21,14 @@ namespace Durable.Poke.Functions.Orchestrators
 
                 //2 - Obtem os dados base de um Pokemon através da PokeApi.
                 var basePokemon = await context.CallActivityAsync<BasePokemonContract>(Constants.GetBasePokemonActivity, pokemonIdInputWrapper);
-                var basePokemonInputWrapper = new ContextInputWrapper<BasePokemonContract>(context.InstanceId, basePokemon);
 
                 //3 - Obtem dados de evolução do Pokemon.
-                var evolution = await context.CallActivityAsync<Evolution>(Constants.GetEvolutionChainActivity, basePokemonInputWrapper);
+                var evolution = await context.CallActivityAsync<EvolutionContract>(Constants.GetEvolutionChainActivity, pokemonIdInputWrapper);
+
+                //4 - Obtem as características de um Pokemon.
+                var characteristics = await context.CallActivityAsync<CharacteristcContract>(Constants.GetCharacteristicsActivity, pokemonIdInputWrapper);
                 Console.WriteLine("");
+
             }
             catch (Exception ex)
             {

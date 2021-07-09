@@ -31,7 +31,7 @@ namespace Durable.Poke.Functions.ExternalClients
             return await HttpResponseMessageHandler.HandleResponse<BasePokemonContract>(response);
         }
 
-        public async Task<Evolution> GetEvolutionChainAsync(int pokemonId)
+        public async Task<EvolutionContract> GetEvolutionChainAsync(int pokemonId)
         {
             var requestUri = $"https://pokeapi.co/api/v2/evolution-chain/{pokemonId}";
 
@@ -39,7 +39,18 @@ namespace Durable.Poke.Functions.ExternalClients
 
             response.EnsureSuccessStatusCode();
 
-            return await HttpResponseMessageHandler.HandleResponse<Evolution>(response);
+            return await HttpResponseMessageHandler.HandleResponse<EvolutionContract>(response);
+        }
+
+        public async Task<CharacteristcContract> GetCharacteristicAsync(int pokemonId)
+        {
+            var requestUri = $"https://pokeapi.co/api/v2/characteristic/{pokemonId}";
+
+            var response = await GetAsync(requestUri);
+
+            //response.EnsureSuccessStatusCode();
+
+            return await HttpResponseMessageHandler.HandleResponse<CharacteristcContract>(response);
         }
 
         public virtual async Task<HttpResponseMessage> GetAsync(string requestUri)
