@@ -9,6 +9,6 @@ namespace Durable.Poke.Functions.ExternalClients
 
         Task<EvolutionContract> GetEvolutionChainAsync(int pokemonId);
 
-        Task<CharacteristcContract> GetCharacteristicAsync(int pokemonId);
+        Task<LocationContract> GetLocationsAsync(int pokemonId);
     }
 }

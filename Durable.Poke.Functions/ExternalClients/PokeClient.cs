@@ -42,15 +42,15 @@ namespace Durable.Poke.Functions.ExternalClients
             return await HttpResponseMessageHandler.HandleResponse<EvolutionContract>(response);
         }
 
-        public async Task<CharacteristcContract> GetCharacteristicAsync(int pokemonId)
+        public async Task<LocationContract> GetLocationsAsync(int pokemonId)
         {
-            var requestUri = $"https://pokeapi.co/api/v2/characteristic/{pokemonId}";
+            var requestUri = $"https://pokeapi.co/api/v2/location/{pokemonId}";
 
             var response = await GetAsync(requestUri);
 
-            //response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode();
 
-            return await HttpResponseMessageHandler.HandleResponse<CharacteristcContract>(response);
+            return await HttpResponseMessageHandler.HandleResponse<LocationContract>(response);
         }
 
         public virtual async Task<HttpResponseMessage> GetAsync(string requestUri)

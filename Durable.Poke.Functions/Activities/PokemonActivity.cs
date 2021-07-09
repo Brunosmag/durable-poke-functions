@@ -42,12 +42,12 @@ namespace Durable.Poke.Functions.Activities
             return await PokeClient.GetEvolutionChainAsync(input.Data);
         }
 
-        [FunctionName(Constants.GetCharacteristicsActivity)]
-        public async Task<CharacteristcContract> GetCharacteristicsActivityAsync([ActivityTrigger] IDurableActivityContext context)
+        [FunctionName(Constants.GetLocationActivity)]
+        public async Task<LocationContract> GetLocationsActivityAsync([ActivityTrigger] IDurableActivityContext context)
         {
             var input = context.GetInput<ContextInputWrapper<int>>();
 
-            return await PokeClient.GetCharacteristicAsync(input.Data);
+            return await PokeClient.GetLocationsAsync(input.Data);
         }
     }
 }

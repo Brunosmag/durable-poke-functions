@@ -26,7 +26,7 @@ namespace Durable.Poke.Functions.Orchestrators
                 var evolution = await context.CallActivityAsync<EvolutionContract>(Constants.GetEvolutionChainActivity, pokemonIdInputWrapper);
 
                 //4 - Obtem as características de um Pokemon.
-                var characteristics = await context.CallActivityAsync<CharacteristcContract>(Constants.GetCharacteristicsActivity, pokemonIdInputWrapper);
+                var location = await context.CallActivityAsync<LocationContract>(Constants.GetLocationActivity, pokemonIdInputWrapper);
                 Console.WriteLine("");
 
             }

@@ -1,0 +1,34 @@
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+
+namespace Durable.Poke.Functions.Infrastructure.Contracts
+{
+    public class LocationContract
+    {
+
+        [JsonProperty("game_indices")]
+        public IReadOnlyCollection<GameIndices> GameIndices { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Region Region { get; set; }      
+    }
+
+    public class Region
+    {
+        public string Name { get; set; }
+        public string Url { get; set; }
+    }
+
+    public class GameIndices
+    {
+        [JsonProperty("game_index")]
+        public int GameIndex { get; set; }
+        public Generation Generation { get; set; }
+    }
+
+    public class Generation
+    {
+        public string Name { get; set; }
+        public string Url { get; set; }
+    }
+}

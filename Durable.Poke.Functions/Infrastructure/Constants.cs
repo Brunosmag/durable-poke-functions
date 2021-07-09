@@ -7,7 +7,7 @@
          public const string GetBasePokemonActivity = "A_GetBasePokemonActivity";
          public const string GetRandomPokemonIdActivity = "A_GetRandomPokemonIdActivity";
          public const string GetEvolutionChainActivity = "A_GetEvolutionChainActivity";
-         public const string GetCharacteristicsActivity = "A_GetCharacteristicsActivity";
+         public const string GetLocationActivity = "A_GetLocationActivity";
 
 
         public const string PokeFlowOrchestrator = "O_PokeFlowOrchestrator";
