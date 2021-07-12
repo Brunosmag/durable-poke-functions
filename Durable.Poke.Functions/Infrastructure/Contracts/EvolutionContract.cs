@@ -9,18 +9,20 @@ namespace Durable.Poke.Functions.Infrastructure.Contracts
         [JsonProperty("is_baby")]
         public bool IsBaby { get; set; }
 
-        public EvolutionChain Chain { get; set; }
+        public EvolutionChainContract Chain { get; set; }
 
-        public class EvolutionChain
+        public class EvolutionChainContract
         {
             [JsonProperty("is_baby")]
             public bool IsBaby { get; set; }
-            public Species Species { get; set; }
+
+            public SpeciesContract Species { get; set; }
         }
 
-        public class Species
+        public class SpeciesContract
         {
             public string Name { get; set; }
+
             public string Url { get; set; }
         }
     }

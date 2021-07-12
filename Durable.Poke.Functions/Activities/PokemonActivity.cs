@@ -1,4 +1,5 @@
-﻿using Durable.Poke.Functions.ExternalClients;
+﻿using Durable.Poke.Functions.Entities;
+using Durable.Poke.Functions.ExternalClients;
 using Durable.Poke.Functions.Infrastructure;
 using Durable.Poke.Functions.Infrastructure.Contracts;
 using Durable.Poke.Functions.Infrastructure.Helpers;
@@ -48,6 +49,13 @@ namespace Durable.Poke.Functions.Activities
             var input = context.GetInput<ContextInputWrapper<int>>();
 
             return await PokeClient.GetLocationsAsync(input.Data);
+        }
+
+        [FunctionName(Constants.MapExternalInformationToEntityActivity)]
+        public Task<Pokemon> MapPokemon([ActivityTrigger] IDurableActivityContext context)
+        {
+            var input = context.GetInput<ContextInputWrapper<Tuple<BasePokemonContract, EvolutionContract, LocationContract>>>();
+
         }
 
 
