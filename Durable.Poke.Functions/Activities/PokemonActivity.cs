@@ -51,12 +51,12 @@ namespace Durable.Poke.Functions.Activities
             return await PokeClient.GetLocationsAsync(input.Data);
         }
 
-        [FunctionName(Constants.MapExternalInformationToEntityActivity)]
-        public Task<Pokemon> MapPokemon([ActivityTrigger] IDurableActivityContext context)
-        {
-            var input = context.GetInput<ContextInputWrapper<Tuple<BasePokemonContract, EvolutionContract, LocationContract>>>();
+        //[FunctionName(Constants.MapExternalInformationToEntityActivity)]
+        //public Task<Pokemon> MapPokemon([ActivityTrigger] IDurableActivityContext context)
+        //{
+        //    var input = context.GetInput<ContextInputWrapper<Tuple<BasePokemonContract, EvolutionContract, LocationContract>>>();
 
-        }
+        //}
 
 
     }
