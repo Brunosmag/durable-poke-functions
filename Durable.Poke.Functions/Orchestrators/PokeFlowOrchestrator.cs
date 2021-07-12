@@ -19,15 +19,18 @@ namespace Durable.Poke.Functions.Orchestrators
                 var pokemonId = await context.CallActivityAsync<int>(Constants.GetRandomPokemonIdActivity, null);
                 var pokemonIdInputWrapper = new ContextInputWrapper<int>(context.InstanceId, pokemonId);
 
-                //2 - Obtem os dados base de um Pokemon através da PokeApi.
+                //2 - Obtem os dados base.
                 var basePokemon = await context.CallActivityAsync<BasePokemonContract>(Constants.GetBasePokemonActivity, pokemonIdInputWrapper);
 
-                //3 - Obtem dados de evolução do Pokemon.
+                //3 - Obtem dados de evolução.
                 var evolution = await context.CallActivityAsync<EvolutionContract>(Constants.GetEvolutionChainActivity, pokemonIdInputWrapper);
 
-                //4 - Obtem as características de um Pokemon.
+                //4 - Obtem a localização.
                 var location = await context.CallActivityAsync<LocationContract>(Constants.GetLocationActivity, pokemonIdInputWrapper);
                 Console.WriteLine("");
+
+                var mapperTuple = new Tuple<BasePokemonContract, EvolutionContract, LocationContract>(basePokemon, evolution, location);
+                var mapperInputWrapper = new ContextInputWrapper<Tuple<BasePokemonContract, EvolutionContract, LocationContract>>(context.InstanceId, mapperTuple);
 
             }
             catch (Exception ex)

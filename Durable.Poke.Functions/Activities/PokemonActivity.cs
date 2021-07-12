@@ -49,5 +49,7 @@ namespace Durable.Poke.Functions.Activities
 
             return await PokeClient.GetLocationsAsync(input.Data);
         }
+
+
     }
 }

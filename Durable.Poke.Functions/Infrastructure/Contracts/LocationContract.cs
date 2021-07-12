@@ -7,26 +7,26 @@ namespace Durable.Poke.Functions.Infrastructure.Contracts
     {
 
         [JsonProperty("game_indices")]
-        public IReadOnlyCollection<GameIndices> GameIndices { get; set; }
+        public IReadOnlyCollection<GameIndiceContract> GameIndices { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
-        public Region Region { get; set; }      
+        public RegionContract Region { get; set; }      
     }
 
-    public class Region
+    public class RegionContract
     {
         public string Name { get; set; }
         public string Url { get; set; }
     }
 
-    public class GameIndices
+    public class GameIndiceContract
     {
         [JsonProperty("game_index")]
         public int GameIndex { get; set; }
-        public Generation Generation { get; set; }
+        public GenerationContract Generation { get; set; }
     }
 
-    public class Generation
+    public class GenerationContract
     {
         public string Name { get; set; }
         public string Url { get; set; }
