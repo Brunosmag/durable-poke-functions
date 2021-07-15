@@ -1,4 +1,5 @@
-﻿using Durable.Poke.Functions.Infrastructure;
+﻿using Durable.Poke.Functions.Entities;
+using Durable.Poke.Functions.Infrastructure;
 using Durable.Poke.Functions.Infrastructure.Contracts;
 using Durable.Poke.Functions.Infrastructure.Helpers;
 using Microsoft.Azure.WebJobs;
@@ -27,11 +28,12 @@ namespace Durable.Poke.Functions.Orchestrators
 
                 //4 - Obtem a localização.
                 var location = await context.CallActivityAsync<LocationContract>(Constants.GetLocationActivity, pokemonIdInputWrapper);
-                Console.WriteLine("");
 
                 var mapperTuple = new Tuple<BasePokemonContract, EvolutionContract, LocationContract>(basePokemon, evolution, location);
                 var mapperInputWrapper = new ContextInputWrapper<Tuple<BasePokemonContract, EvolutionContract, LocationContract>>(context.InstanceId, mapperTuple);
 
+                var poke = await context.CallActivityAsync<Pokemon>(Constants.MapExternalInformationToEntityActivity, mapperInputWrapper);
+                Console.WriteLine();
             }
             catch (Exception ex)
             {

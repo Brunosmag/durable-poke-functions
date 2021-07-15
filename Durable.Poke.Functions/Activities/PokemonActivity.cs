@@ -1,4 +1,5 @@
-﻿using Durable.Poke.Functions.Entities;
+﻿using AutoMapper;
+using Durable.Poke.Functions.Entities;
 using Durable.Poke.Functions.ExternalClients;
 using Durable.Poke.Functions.Infrastructure;
 using Durable.Poke.Functions.Infrastructure.Contracts;
@@ -13,10 +14,14 @@ namespace Durable.Poke.Functions.Activities
     public class PokemonActivity
     {
         public IPokeClient PokeClient { get; }
+        public IMapper Mapper { get; }
 
-        public PokemonActivity(IPokeClient pokeClient)
+        public PokemonActivity(
+            IPokeClient pokeClient,
+            IMapper mapper)
         {
             PokeClient = pokeClient ?? throw new ArgumentNullException(nameof(pokeClient));
+            Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [FunctionName(Constants.GetRandomPokemonIdActivity)]
@@ -51,13 +56,16 @@ namespace Durable.Poke.Functions.Activities
             return await PokeClient.GetLocationsAsync(input.Data);
         }
 
-        //[FunctionName(Constants.MapExternalInformationToEntityActivity)]
-        //public Task<Pokemon> MapPokemon([ActivityTrigger] IDurableActivityContext context)
-        //{
-        //    var input = context.GetInput<ContextInputWrapper<Tuple<BasePokemonContract, EvolutionContract, LocationContract>>>();
+        [FunctionName(Constants.MapExternalInformationToEntityActivity)]
+        public Pokemon MapPokemon([ActivityTrigger] IDurableActivityContext context)
+        {
+            var input = context.GetInput<ContextInputWrapper<Tuple<BasePokemonContract, EvolutionContract, LocationContract>>>();
 
-        //}
+            var pokemon = Mapper.Map<Pokemon>(input.Data.Item1);
+            pokemon.WithEvolution(Mapper.Map<Evolution>(input.Data.Item2));
+            pokemon.WithLocation(Mapper.Map<Location>(input.Data.Item3));
 
-
+            return pokemon;
+        }
     }
 }
