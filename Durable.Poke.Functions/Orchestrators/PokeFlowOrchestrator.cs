@@ -29,9 +29,11 @@ namespace Durable.Poke.Functions.Orchestrators
                 //4 - Obtem a localização.
                 var location = await context.CallActivityAsync<LocationContract>(Constants.GetLocationActivity, pokemonIdInputWrapper);
 
+                //5 - Cria uma tupla de 3 itens com os dados de Pokemon obtidos anteriormente e envolve com o ContextInputWrapper.
                 var mapperTuple = new Tuple<BasePokemonContract, EvolutionContract, LocationContract>(basePokemon, evolution, location);
                 var mapperInputWrapper = new ContextInputWrapper<Tuple<BasePokemonContract, EvolutionContract, LocationContract>>(context.InstanceId, mapperTuple);
 
+                //6 - Efetua o mapeamento dos contratos para entidade Pokemon.
                 var poke = await context.CallActivityAsync<Pokemon>(Constants.MapExternalInformationToEntityActivity, mapperInputWrapper);
                 Console.WriteLine();
             }
