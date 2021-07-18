@@ -4,9 +4,12 @@ using Durable.Poke.Functions.ExternalClients;
 using Durable.Poke.Functions.Infrastructure;
 using Durable.Poke.Functions.Infrastructure.Contracts;
 using Durable.Poke.Functions.Infrastructure.Helpers;
+using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
+using Newtonsoft.Json;
 using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Durable.Poke.Functions.Activities
@@ -15,13 +18,16 @@ namespace Durable.Poke.Functions.Activities
     {
         public IPokeClient PokeClient { get; }
         public IMapper Mapper { get; }
+        public ITopicClientWrapper<Pokemon> TopicClientWrapper { get; }
 
         public PokemonActivity(
             IPokeClient pokeClient,
-            IMapper mapper)
+            IMapper mapper,
+            ITopicClientWrapper<Pokemon> topicClientWrapper)
         {
             PokeClient = pokeClient ?? throw new ArgumentNullException(nameof(pokeClient));
             Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            TopicClientWrapper = topicClientWrapper ?? throw new ArgumentNullException(nameof(topicClientWrapper));
         }
 
         [FunctionName(Constants.GetRandomPokemonIdActivity)]
@@ -66,6 +72,14 @@ namespace Durable.Poke.Functions.Activities
             pokemon.WithLocation(Mapper.Map<Location>(input.Data.Item3));
 
             return pokemon;
+        }
+
+        [FunctionName(Constants.PublishToServiceBusActivity)]
+        public async Task PublishPokemonToServiceBus([ActivityTrigger] IDurableActivityContext context)
+        {
+            var input = context.GetInput<ContextInputWrapper<Pokemon>>();
+
+            await TopicClientWrapper.SendAsync(input.Data);
         }
     }
 }

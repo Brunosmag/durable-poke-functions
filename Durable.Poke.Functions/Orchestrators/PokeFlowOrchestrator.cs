@@ -35,7 +35,10 @@ namespace Durable.Poke.Functions.Orchestrators
 
                 //6 - Efetua o mapeamento dos contratos para entidade Pokemon.
                 var poke = await context.CallActivityAsync<Pokemon>(Constants.MapExternalInformationToEntityActivity, mapperInputWrapper);
-                Console.WriteLine();
+
+                //7 - Publica para tópico no service bus
+                var pokemonInputWrapper = new ContextInputWrapper<Pokemon>(context.InstanceId, poke);
+                await context.CallActivityAsync(Constants.PublishToServiceBusActivity, pokemonInputWrapper);
             }
             catch (Exception ex)
             {
