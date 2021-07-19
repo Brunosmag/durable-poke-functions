@@ -4,12 +4,9 @@ using Durable.Poke.Functions.ExternalClients;
 using Durable.Poke.Functions.Infrastructure;
 using Durable.Poke.Functions.Infrastructure.Contracts;
 using Durable.Poke.Functions.Infrastructure.Helpers;
-using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-using Newtonsoft.Json;
 using System;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Durable.Poke.Functions.Activities

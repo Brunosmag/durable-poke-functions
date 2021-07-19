@@ -10,7 +10,7 @@ namespace Durable.Poke.Functions.Entrypoints
     {
         [FunctionName(Constants.GetPokemonTimerEntrypoint)]
         public async Task GetPokemonAsync(
-            [TimerTrigger("0 0 * * * *", RunOnStartup = true)] TimerInfo myTimer,
+            [TimerTrigger("0 30 9 * * *", RunOnStartup = false)] TimerInfo myTimer,
             [DurableClient] IDurableOrchestrationClient starter,
             ILogger logger)
         {
